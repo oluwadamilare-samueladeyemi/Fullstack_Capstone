@@ -1,6 +1,12 @@
 import "dotenv/config";
+import dns from "dns";
 import express from "express";
 import mongoose from "mongoose";
+
+// Local-dev workaround: some networks refuse SRV lookups
+if (process.env.NODE_ENV !== "production") {
+  dns.setServers(["8.8.8.8", "1.1.1.1"]);
+}
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -8,12 +14,17 @@ const PORT = process.env.PORT || 5000;
 // Allow Express to read JSON request bodies
 app.use(express.json());
 
+app.get('/', (req, res) => {
+    res.send('The Skill server is running!');
+});
+
 // Basic health check
 app.get("/api/health", (req, res) => {
   res.status(200).json({
     status: "ok",
   });
 });
+
 
 // Basic error handler
 app.use((err, req, res, next) => {
