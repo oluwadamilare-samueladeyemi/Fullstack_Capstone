@@ -16,6 +16,21 @@ router.get("/", async (req, res) => {
   }
 });
 
+router.get("/:id", async (req, res, next) => {
+  try {
+    const skill = await Skill.findById(req.params.id);
+
+    if (!skill) {
+      return res.status(404).json({ message: "Skill not found" });
+    }
+
+    res.status(200).json(skill);
+  } catch (err) {
+    next(err);
+  }
+});
+
+
 export default router;
 // // Create a new skill
 // router.post('/api/skills', async (req, res) => {

@@ -50,7 +50,7 @@ const buildSkills = (user1) => {
       const endorsedBy = [user1._id];
 
       return {
-        id: `SKL-${String(counter++).padStart(4, '0')}`,
+        _id: `SKL-${String(counter++).padStart(4, '0')}`,
         name,
         category: categoryMap[title],
         level: 'intermediate',
