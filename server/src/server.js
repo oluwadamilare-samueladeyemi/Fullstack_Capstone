@@ -2,6 +2,7 @@ import "dotenv/config";
 import dns from "dns";
 import express from "express";
 import mongoose from "mongoose";
+import skillRouter from "./routes/skillRoutes.js";
 
 // Local-dev workaround: some networks refuse SRV lookups
 if (process.env.NODE_ENV !== "production") {
@@ -25,6 +26,8 @@ app.get("/api/health", (req, res) => {
   });
 });
 
+// Skill endpoints
+app.use('/api/skills', skillRouter);
 
 // Basic error handler
 app.use((err, req, res, next) => {
